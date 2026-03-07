@@ -1,0 +1,1 @@
+{"players": {"b69ca9d6-d27d-4a61-b6d8-6e747cee8f79": {"id": "b69ca9d6-d27d-4a61-b6d8-6e747cee8f79", "bot": false, "trail": [[0, 384.1, 425.3], [25000, 391.7, 423.4], [30000, 414.4, 427.9], [35000, 417.3, 426.9]]}}, "events": [{"t": 33000, "px": 417.3, "py": 426.9, "type": "BotKilled", "player": "b69ca9d6-d27d-4a61-b6d8-6e747cee8f79", "bot": false}], "duration": 35000}

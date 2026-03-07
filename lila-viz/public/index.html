@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LILA BLACK | Player Journey Visualizer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="dark-theme">
+    <div id="loader" class="loader-overlay">
+        <div class="loader-content">
+            <div class="spinner"></div>
+            <h1>LOADING TELEMETRY</h1>
+            <p>Processing match data for LILA Level Design...</p>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo">
+            <span class="lila">LILA</span><span class="black">BLACK</span>
+            <span class="tag">ANALYTICS</span>
+        </div>
+        <div class="header-controls">
+            <div class="stat-item">
+                <span class="stat-label">MATCHES</span>
+                <span id="stat-matches" class="stat-value">--</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">HUMANS</span>
+                <span id="stat-humans" class="stat-value">--</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">BOTS</span>
+                <span id="stat-bots" class="stat-value">--</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <aside id="sidebar">
+            <div class="sidebar-section">
+                <h3>FILTERS</h3>
+                <div class="filter-group">
+                    <label for="map-filter">Map</label>
+                    <select id="map-filter">
+                        <option value="all">All Maps</option>
+                        <option value="AmbroseValley">Ambrose Valley</option>
+                        <option value="GrandRift">Grand Rift</option>
+                        <option value="Lockdown">Lockdown</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="day-filter">Date</label>
+                    <select id="day-filter">
+                        <option value="all">All Days</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="sidebar-section match-selector-container">
+                <div class="section-header">
+                    <h3>MATCHES</h3>
+                    <span id="match-count-label" class="badge">0</span>
+                </div>
+                <div class="search-box">
+                    <input type="text" id="match-search" placeholder="Search Match ID...">
+                </div>
+                <div id="match-list" class="scroll-container">
+                    <!-- Matches populated here -->
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>OVERLAYS</h3>
+                <div class="toggle-group">
+                    <label class="toggle">
+                        <input type="checkbox" id="toggle-heatmap">
+                        <span class="slider"></span>
+                        <span class="toggle-label">Heatmap</span>
+                    </label>
+                    <select id="heatmap-type" disabled>
+                        <option value="traffic">Position Density</option>
+                        <option value="kills">Kills / Combat</option>
+                        <option value="deaths">Death Zones</option>
+                        <option value="storm_deaths">Storm Deaths</option>
+                        <option value="loot">Loot Hotspots</option>
+                    </select>
+                </div>
+                <div class="toggle-group">
+                    <label class="toggle">
+                        <input type="checkbox" id="toggle-paths" checked>
+                        <span class="slider"></span>
+                        <span class="toggle-label">Player Trails</span>
+                    </label>
+                </div>
+                <div class="toggle-group">
+                    <label class="toggle">
+                        <input type="checkbox" id="toggle-humans" checked>
+                        <span class="slider"></span>
+                        <span class="toggle-label">Humans</span>
+                    </label>
+                </div>
+                <div class="toggle-group">
+                    <label class="toggle">
+                        <input type="checkbox" id="toggle-bots" checked>
+                        <span class="slider"></span>
+                        <span class="toggle-label">Bots</span>
+                    </label>
+                </div>
+            </div>
+        </aside>
+
+        <section id="map-container">
+            <div id="map-viewport">
+                <div id="map-image-layer"></div>
+                <canvas id="heatmap-canvas" width="1024" height="1024"></canvas>
+                <canvas id="trail-canvas" width="1024" height="1024"></canvas>
+                <canvas id="marker-canvas" width="1024" height="1024"></canvas>
+                
+                <div id="tooltip" class="hidden"></div>
+            </div>
+
+            <div id="playback-controls">
+                <div class="match-info-mini">
+                    <span id="current-match-id">Select a match to visualize</span>
+                </div>
+                <div class="timeline-row">
+                    <button id="btn-play" class="icon-btn">
+                        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" /></svg>
+                    </button>
+                    <div class="time-slider-wrapper">
+                        <input type="range" id="time-slider" min="0" max="1000" value="0">
+                        <div id="event-markers-timeline"></div>
+                    </div>
+                    <div class="time-display">
+                        <span id="current-time">00:00</span> / <span id="total-time">00:00</span>
+                    </div>
+                </div>
+                <div class="controls-row">
+                    <div class="playback-speed">
+                        <span>Speed:</span>
+                        <button class="speed-btn active" data-speed="1">1x</button>
+                        <button class="speed-btn" data-speed="2">2x</button>
+                        <button class="speed-btn" data-speed="5">5x</button>
+                        <button class="speed-btn" data-speed="10">10x</button>
+                    </div>
+                    <div class="match-stats-row">
+                        <span id="match-live-stats"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

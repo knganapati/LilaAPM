@@ -1,0 +1,1 @@
+{"players": {"94d042cb-a0f2-45f3-bdca-42fab73cfef5": {"id": "94d042cb-a0f2-45f3-bdca-42fab73cfef5", "bot": false, "trail": [[0, 302.3, 901.9]]}}, "events": [{"t": 13000, "px": 302.3, "py": 901.9, "type": "BotKilled", "player": "94d042cb-a0f2-45f3-bdca-42fab73cfef5", "bot": false}], "duration": 13000}
