@@ -1,0 +1,6 @@
+{
+    "name": "LilaAPMPlayerJourney",
+    "version": 2,
+    "public": true,
+    "outputDirectory": "lila-viz/public"
+}

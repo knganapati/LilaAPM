@@ -1,0 +1,9 @@
+[build]
+  publish = "lila-viz/public"
+  command = "" # No build command as data is pre-processed
+
+# Handle potential SPA routing if we add features later
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
