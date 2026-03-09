@@ -1,0 +1,10 @@
+pylibs/
+player_data/
+player_data.zip
+*.nakama-0
+__pycache__/
+.git/
+.DS_Store
+*.py
+debug_*.py
+test_ts.py
